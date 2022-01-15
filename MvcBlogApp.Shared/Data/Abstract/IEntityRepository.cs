@@ -15,7 +15,7 @@ namespace MvcBlogApp.Shared.Data.Abstract
         Task AddAsync(T entity);
         Task UpdateAsync(T entity);
         Task DeleteAsync(T entity);
-        Task<bool> Any(Expression<Func<T, bool>> predicate);
+        Task<bool> AnyAsync(Expression<Func<T, bool>> predicate);
         Task<int> Count(Expression<Func<T, bool>> predicate);
     }
 }

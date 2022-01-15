@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace MvcBlogApp.Data.Abstract
 {
-    public interface IIUnitOfWork : IAsyncDisposable
+    public interface IUnitOfWork : IAsyncDisposable
     {
-        ICategoryRepository CategoryRepository { get; }
-        IArticleRepository ArticleRepository { get; }
-        ICommentRepository CommentRepository { get; }
-        IRoleRepository RoleRepository { get; }
-        IUserRepository UserRepository { get; }
+        ICategoryRepository Categories { get; }
+        IArticleRepository Articles { get; }
+        ICommentRepository Comments { get; }
+        IRoleRepository Roles { get; }
+        IUserRepository Users { get; }
         Task<int> SaveAsync();
 
     }

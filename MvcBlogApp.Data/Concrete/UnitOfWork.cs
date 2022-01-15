@@ -9,7 +9,7 @@ using MvcBlogApp.Data.Concrete.EntityFrameworkCore.Repositories;
 
 namespace MvcBlogApp.Data.Concrete
 {
-    public class UnitOfWork : IIUnitOfWork
+    public class UnitOfWork : IUnitOfWork
     {
         private readonly MvcBlogAppContext _context;
         private ArticleRepository _articleRepository;
@@ -24,11 +24,11 @@ namespace MvcBlogApp.Data.Concrete
         }
 
 
-        public ICategoryRepository CategoryRepository => _categoryRepository ?? new CategoryRepository(_context);
-        public IArticleRepository ArticleRepository => _articleRepository ?? new ArticleRepository(_context);
-        public ICommentRepository CommentRepository => _commentRepository ?? new CommentRepository(_context);
-        public IRoleRepository RoleRepository => _roleRepository ?? new RoleRepository(_context);
-        public IUserRepository UserRepository => _userRepository ?? new UserRepository(_context);
+        public ICategoryRepository Categories => _categoryRepository ?? new CategoryRepository(_context);
+        public IArticleRepository Articles => _articleRepository ?? new ArticleRepository(_context);
+        public ICommentRepository Comments => _commentRepository ?? new CommentRepository(_context);
+        public IRoleRepository Roles => _roleRepository ?? new RoleRepository(_context);
+        public IUserRepository Users => _userRepository ?? new UserRepository(_context);
         public async Task<int> SaveAsync()
         {
             return await _context.SaveChangesAsync();

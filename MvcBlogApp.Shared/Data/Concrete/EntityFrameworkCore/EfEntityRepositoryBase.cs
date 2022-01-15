@@ -74,7 +74,7 @@ namespace MvcBlogApp.Shared.Data.Concrete.EntityFrameworkCore
             await Task.Run(() => _dbContext.Set<T>().Remove(entity));
         }
 
-        public async Task<bool> Any(Expression<Func<T,bool>> predicate)
+        public async Task<bool> AnyAsync(Expression<Func<T,bool>> predicate)
         {
             return await _dbContext.Set<T>().AnyAsync(predicate);
         }
