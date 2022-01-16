@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MvcBlogApp.Services.Extensions;
 
 namespace MvcBlogApp.Mvc
 {
@@ -23,7 +24,10 @@ namespace MvcBlogApp.Mvc
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddRazorPages();
+            services.AddControllersWithViews().AddRazorRuntimeCompilation();
+            services.AddAutoMapper(typeof(Startup));
+            services.LoadMyServices();
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -32,6 +36,7 @@ namespace MvcBlogApp.Mvc
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseStatusCodePages();
             }
             else
             {
@@ -49,7 +54,12 @@ namespace MvcBlogApp.Mvc
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapRazorPages();
+                endpoints.MapAreaControllerRoute(
+                    name:"Admin",
+                    areaName:"Admin",
+                    pattern:"Admin/{controller = Home}/{action = Index}/{id?}"
+                    );
+                endpoints.MapDefaultControllerRoute();
             });
         }
     }
