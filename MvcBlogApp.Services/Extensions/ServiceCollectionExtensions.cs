@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using MvcBlogApp.Data.Abstract;
+using MvcBlogApp.Data.Concrete;
 using MvcBlogApp.Data.Concrete.EntityFrameworkCore.Contexts;
 using MvcBlogApp.Services.Abstract;
 using MvcBlogApp.Services.Concrete;
@@ -16,7 +17,7 @@ namespace MvcBlogApp.Services.Extensions
         public static IServiceCollection LoadMyServices(this IServiceCollection serviceCollection)
         {
             serviceCollection.AddDbContext<MvcBlogAppContext>();
-            serviceCollection.AddScoped<IUnitOfWork, IUnitOfWork>();
+            serviceCollection.AddScoped<IUnitOfWork, UnitOfWork>();
             serviceCollection.AddScoped<ICategoryService, CategoryManager>();
             serviceCollection.AddScoped<IArticleService, ArticleManager>();
             return serviceCollection;

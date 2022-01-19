@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MvcBlogApp.Services.AutoMapper.Profiles;
 using MvcBlogApp.Services.Extensions;
 
 namespace MvcBlogApp.Mvc
@@ -25,7 +26,7 @@ namespace MvcBlogApp.Mvc
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
-            services.AddAutoMapper(typeof(Startup));
+            services.AddAutoMapper(typeof(CategoryProfile), typeof(ArticleProfile));
             services.LoadMyServices();
             
         }
@@ -54,11 +55,10 @@ namespace MvcBlogApp.Mvc
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapAreaControllerRoute(
-                    name:"Admin",
-                    areaName:"Admin",
-                    pattern:"Admin/{controller = Home}/{action = Index}/{id?}"
-                    );
+                endpoints.MapControllerRoute(
+                    name: "areas",
+                    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                );
                 endpoints.MapDefaultControllerRoute();
             });
         }

@@ -114,7 +114,8 @@ namespace MvcBlogApp.Services.Concrete
             article.ModifiedByName = createdByName;
             article.UserId = 1;
 
-            await _unitOfWork.Articles.AddAsync(article).ContinueWith(t => _unitOfWork.SaveAsync());
+            await _unitOfWork.Articles.AddAsync(article);
+            await _unitOfWork.SaveAsync();
             return new Result(ResultStatus.Success, $"{articleAddDto.Title} başlıklı makale başarıyla eklenmiştir");
         }
 
@@ -123,7 +124,8 @@ namespace MvcBlogApp.Services.Concrete
             var article = _mapper.Map<Article>(articleUpdateDto);
             article.ModifiedByName = modifiedByName;
 
-            await _unitOfWork.Articles.UpdateAsync(article).ContinueWith(t => _unitOfWork.SaveAsync());
+            await _unitOfWork.Articles.UpdateAsync(article);
+            await _unitOfWork.SaveAsync();
             return new Result(ResultStatus.Success, $"{articleUpdateDto.Title} başlıklı makale başarıyla Güncellenmiştir");
         }
 
@@ -135,7 +137,8 @@ namespace MvcBlogApp.Services.Concrete
                 article.IsDeleted = true;
                 article.ModifiedByName = modifiedByName;
                 article.ModifiedDate = DateTime.Now;
-                await _unitOfWork.Articles.UpdateAsync(article).ContinueWith(t => _unitOfWork.SaveAsync());
+                await _unitOfWork.Articles.UpdateAsync(article);
+                await _unitOfWork.SaveAsync();
                 return new Result(ResultStatus.Success, "makale başarılı bir şekilde silinmiştir");
             }
             return new Result(ResultStatus.Error, "makale bulanamadı", null);
@@ -146,7 +149,8 @@ namespace MvcBlogApp.Services.Concrete
             var article = await _unitOfWork.Articles.GetAsync(a => a.Id == articleId);
             if (article != null)
             {
-                await _unitOfWork.Articles.DeleteAsync(article).ContinueWith(t => _unitOfWork.SaveAsync());
+                await _unitOfWork.Articles.DeleteAsync(article);
+                await _unitOfWork.SaveAsync();
                 return new Result(ResultStatus.Success, "makale başarılı bir şekilde veritabanından silinmiştir");
             }
             return new Result(ResultStatus.Error, "makale bulanamadı", null);
